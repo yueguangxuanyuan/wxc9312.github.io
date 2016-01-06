@@ -68,8 +68,8 @@ Typecho_Plugin::factory('index.php')->end();
 	var scrollY ;
 	var oldScroll = window.onscroll;
 	function disableScroll() {
-		scrollX = window.scrollX;
-		scrollY = window.scrollY;
+		scrollX = document.body.scrollLeft;
+		scrollY = document.body.scrollTop;
 		window.onscroll=function(){
 			window.scrollTo(scrollX,scrollY);
 		}
