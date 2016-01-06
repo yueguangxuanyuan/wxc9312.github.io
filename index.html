@@ -32,10 +32,16 @@ Typecho_Plugin::factory('index.php')->end();
 		<img src="http://chunc.pub/xinnian.jpg"></img>
 	</a>
 	</div>
-<div id="zhici" onload="after_func()" style="position:fixed;z-index：10000 ;top:0px; left:0px ;width:100%;height:100%;display:none;background:rgba(10%,20%,30%,0.3);text-align:center" onClick="hide()">
-	<img  style="top:50%;left:50%;position:relative;transform(-50%,-50%)" src ="http://chunc.pub/zhici.jpg">
+<div id="zhici" onload="after_func()" style="position:fixed;z-index：10000 ;top:0px; left:0px ;width:100%;height:100%;display:none;background:rgba(10%,20%,30%,0.3)" onClick="hide()">
+	<div style="position:fixed;top:50%;left:50%">
+		<img  style="margin-top:-315;margin-left:-497" src ="http://chunc.pub/zhici.jpg">
+	</div>
 </div>	
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <script>
 
@@ -57,7 +63,16 @@ Typecho_Plugin::factory('index.php')->end();
 	}
 	var oldonwheel, oldonmousewheel1, oldonmousewheel2, oldontouchmove, oldonkeydown
 	, isDisabled;
+	
+	var scrollX ;
+	var scrollY ;
+	var oldScroll = window.onscroll;
 	function disableScroll() {
+		scrollX = window.scrollX;
+		scrollY = window.scrollY;
+		window.onscroll=function(){
+			window.scrollTo(scrollX,scrollY);
+		}
 		if (window.addEventListener) // older FF
 			window.addEventListener('DOMMouseScroll', preventDefault, false);
 		oldonwheel = window.onwheel;
@@ -77,6 +92,8 @@ Typecho_Plugin::factory('index.php')->end();
 	}
 
 	function enableScroll() {
+		window.onscroll = oldScroll;
+		
 		if (!isDisabled) return;
 		if (window.removeEventListener)
 			window.removeEventListener('DOMMouseScroll', preventDefault, false);
@@ -99,22 +116,22 @@ Typecho_Plugin::factory('index.php')->end();
 	var show = function(){
 		document.getElementById("zhici").style.display = "block";
 		document.getElementById("zhici").style['z-index'] = "10000";
-		document.body.style.overflow='hidden';
-		document.body.style['padding–right']="17px";
+		//document.body.style.overflow='hidden';
+		disableScroll();
 	};
 	var hide = function(){
 		document.getElementById("zhici").style.display = "none";
-		document.body.style.overflow='';
-		document.body.style['padding–right']="0px";
+		//document.body.style.overflow='';
+		enableScroll();
 	};
 	var x = 0;
 	var y = 0;
-	var abs_xd = 10;
-	var abs_yd = 10;
+	var abs_xd = 1;
+	var abs_yd = 1;
 	var xd = abs_xd;
 	var yd = abs_yd;
 	var move = function(){
-		var width = window.innerWidth - 611;
+		var width = window.innerWidth - 611 - 17;
 		var height = window.innerHeight -123;
 		if(x+ xd >= width){
 			xd = 0 - abs_xd;
@@ -133,7 +150,7 @@ Typecho_Plugin::factory('index.php')->end();
 		document.getElementById('kuaile').style.top = y+"px";
 		document.getElementById('kuaile').style.left= x+"px";
 	};
-	var timer = setInterval( move,300);
+	var timer = setInterval( move,10);
 	
 		
 </script>
