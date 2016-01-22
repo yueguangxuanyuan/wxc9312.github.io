@@ -21,7 +21,7 @@ links = []
 def func(pid):
 	print("start get links on Pid"+str(pid))
 	links = [getPictureSrc(url) for url in getPageLinks(pid)]
-	file = open("/home/I309994/war/"+str(pid)+".txt","w")
+	file = open("/war/"+str(pid)+".txt","w")
 	file.writelines([alink+"\n" for alink in links])
 	file.close()
 	print("complete get links on Pid"+str(pid))
