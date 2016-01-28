@@ -67,12 +67,15 @@ Typecho_Plugin::factory('index.php')->end();
 		margin-left: auto;
 		margin-right: auto;
 		background:url(bg.jpg);
-		 text-shadow:black 5px 5px 5px; 
-		 filter: Shadow(Color='black', Direction='135', Strength='5');
+		text-shadow:black 5px 5px 5px; 
+		filter: Shadow(Color='black', Direction='135', Strength='5');
+		filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+		-moz-background-size:100% 100%;
+		background-size:100% 100%;
 	}
 	p.title {
 		text-align:center;
-		font-size : 2em;
+		font-size : 3em;
 	}
 	
 	p.sign {
