@@ -1,7 +1,12 @@
-
-<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.mouseEnter()" onmouseout="XinNianHeCi.mouseOut()">
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<title>测试</title>
+</head>
+<body>
+<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.mouseEnter()" onmouseout="XinNianHeCi.mouseOut()" >
     <a onclick="XinNianHeCi.showHeCi()"><img src="./xinnian.jpg"/></a>
-	<div id="kuaileControl">
+	<div id="kuaileControl" style="display:none">
 		<a class="switch klButton" style="position: absolute;top: 0;right: 25;" onclick="XinNianHeCi.stopOrResume()"> <img id="heCitoggleImg" src="icon/pause.png"/>  </a>
 		<a class="close klButton" style="position: absolute;top: 0;right: 0;" onclick="XinNianHeCi.closeBar()">  <img src="icon/close.png"/> </a>
 	</div>
@@ -46,6 +51,8 @@
 <p>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 </p>
+</body>
+</html>
 <style>
 	.klButton{
 		width: 20;
@@ -142,9 +149,13 @@
 			document.getElementById("kuaileControl").style.display="none";
 			startPicMove();
 		}
+		//初始化 启动
+		XinNianHeCi.init = function(){
+			startPicMove();
+		}
 		
 		//控制定时器 操作图片运动
-		 function startPicMove(){
+		function startPicMove(){
 			if(!timer && !isStopped){
 				timer = setInterval( XinNianHeCi.movePic,10);
 			}
@@ -199,5 +210,5 @@
 	}
 	
 	//初始化代码
-	addEvent(window,"load",XinNianHeCi.startPicMove);
+	addEvent(window,"load",XinNianHeCi.init);
 </script>
