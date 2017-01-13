@@ -1,8 +1,12 @@
 
-<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.stopPicMove()" onmouseout="XinNianHeCi.startPicMove()">
+<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.mouseEnter()" onmouseout="XinNianHeCi.mouseOut()">
     <a onclick="XinNianHeCi.showHeCi()"><img src="./xinnian.jpg"/></a>
-	<button type="button" class="close">
+	<div id="kuaileControl">
+		<a class="switch klButton" style="position: absolute;top: 0;right: 25;" onclick="XinNianHeCi.stopOrResume()"> <img id="heCitoggleImg" src="icon/pause.png"/>  </a>
+		<a class="close klButton" style="position: absolute;top: 0;right: 0;" onclick="XinNianHeCi.closeBar()">  <img src="icon/close.png"/> </a>
+	</div>
 </div>
+	
 <div id="zhici" onload="after_func()" style="position:fixed;z-index：10000 ;top:0px; left:0px ;width:100%;height:100%;display:none;background:rgba(10%,20%,30%,0.3); overflow:auto" onclick="XinNianHeCi.hideHeCi()">
     <div class="x_zhici">
         <div>
@@ -43,7 +47,14 @@
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 </p>
 <style>
-	
+	.klButton{
+		width: 20;
+		height:20;
+	}
+	.klButton img{
+		width:100%;
+		height:100%;
+	}
 	.x_zhici p {
 		font-size : 2em;
 		color : yellow;
@@ -83,6 +94,8 @@
 		var abs_yd=1;
 		var xd=1;
 		var yd=1;
+		var isStopped =false;
+		var beforeShowPicState = false;
 		var timer = null;
 
 		// public methods and properties
@@ -90,12 +103,15 @@
 				document.getElementById("zhici").style.display = "block";
 				document.getElementById("zhici").style['z-index'] = "10000";
 				document.body.style.overflow='hidden';
-				//disableScroll();
+				beforeShowPicState = isStopped;
+				Pause();
 			};
 		XinNianHeCi.hideHeCi = function(){
 			document.getElementById("zhici").style.display = "none";
 			document.body.style.overflow='';
-			//enableScroll();
+			if(!beforeShowPicState){
+				Resume();
+			}
 			};
 		XinNianHeCi.movePic =function(){
 				var kuaile =document.getElementById('kuaile');
@@ -118,19 +134,51 @@
 				kuaile.style.top =  y+"px";
 				kuaile.style.left=  x+"px";
 			};
-			
-		XinNianHeCi.startPicMove =function(){
-			if(!timer){
+		XinNianHeCi.mouseEnter = function(){
+			document.getElementById("kuaileControl").style.display="block";
+			stopPicMove();
+		}
+		XinNianHeCi.mouseOut = function(){
+			document.getElementById("kuaileControl").style.display="none";
+			startPicMove();
+		}
+		
+		//控制定时器 操作图片运动
+		 function startPicMove(){
+			if(!timer && !isStopped){
 				timer = setInterval( XinNianHeCi.movePic,10);
 			}
 		};
-		
-		XinNianHeCi.stopPicMove = function(){
+		function stopPicMove(){
 			//清空定时器
 			if(timer){
 			 clearInterval(timer);
 			 timer = null;
 			}
+		};
+		
+		XinNianHeCi.stopOrResume = function(){
+			if(isStopped){
+				Resume();
+			}else{
+				Pause();
+			}
+		}
+		function Pause(){
+		    isStopped = true;
+			document.getElementById("heCitoggleImg").src = "./icon/play.png";
+			stopPicMove();
+		};
+		
+		function Resume(){
+			isStopped = false;
+			document.getElementById("heCitoggleImg").src = "./icon/pause.png";
+			startPicMove();
+		};
+		
+		XinNianHeCi.closeBar = function(){
+			stopPicMove();//回收定时器
+			document.getElementById("kuaile").style.display = "none";
 		};
 		// private method
 	   
@@ -149,6 +197,7 @@
 			target["on" + eventName] = handlerName;
 		}
 	}
+	
 	//初始化代码
 	//addEvent(window,"load",XinNianHeCi.startPicMove);
 </script>
