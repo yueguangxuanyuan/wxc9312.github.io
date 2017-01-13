@@ -4,7 +4,7 @@
 <title>测试</title>
 </head>
 <body>
-<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.mouseEnter()" onmouseout="XinNianHeCi.mouseOut()" >
+<div id="kuaile" style="position:fixed;z-index:5000; top:0px; left:0px" onmouseover="XinNianHeCi.mouseEnter()" onmouseout="XinNianHeCi.mouseOut()" ontouchstart="XinNianHeCi.stopOrResume()">
     <a onclick="XinNianHeCi.showHeCi()"><img src="./xinnian.jpg"/></a>
 	<div id="kuaileControl" style="display:none">
 		<a class="switch klButton" style="position: absolute;top: 0;right: 25;" onclick="XinNianHeCi.stopOrResume()"> <img id="heCitoggleImg" src="icon/pause.png"/>  </a>
